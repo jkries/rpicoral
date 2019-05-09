@@ -21,7 +21,7 @@ photos = UploadSet('photos', IMAGES)
 configure_uploads(app, photos)
 patch_request_class(app)  # set maximum file size, default is 16MB
 
-#Coral config info
+#Coral insect config info
 myModel = "../ai/mobilenet_v2_1.0_224_inat_insect_quant_edgetpu.tflite"
 myLabel = "../ai/inat_insect_labels.txt"
 
@@ -55,6 +55,8 @@ class UploadForm(FlaskForm):
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
+    coralReply = ''
+    coralPercent = ''
     form = UploadForm()
     if form.validate_on_submit():
         filename = photos.save(form.photo.data)
@@ -65,16 +67,23 @@ def upload_file():
         # Initialize engine.
         engine = ClassificationEngine(myModel)
         # Run inference.
-        img = Image.open(file_url)
+        img = Image.open('myPhotos/' + imageSpot)
         for result in engine.ClassifyWithImage(img, top_k=3):
             print('---------------------------')
             print(labels[result[0]])
             print('Score : ', result[1])
+            showResult = labels[result[0]]
+            showPercent = str(int(round(result[1] * 100)))
+            coralReply = showResult
+            coralPercent = showPercent + '% confidence'
     else:
         file_url = None
         coralReply = ''
-    return render_template('index.html', form=form, file_url=file_url, coralReply=coralReply)
+        coralPercent = ''
+    return render_template('index.html', form=form, file_url=file_url, coralReply=coralReply, coralPercent=coralPercent)
 
 
 if __name__ == '__main__':
-    app.run()
+    #app.run()
+    #app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0')
