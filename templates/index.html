@@ -20,11 +20,12 @@
 
 {% if file_url %}
 <br>
-<img src="{{ file_url }}">
+<img src="{{ file_url }}" style="max-width:400px;">
 {% endif %}
 
 {% if coralReply %}
-<div id="imageData">{{ coralReply }}</div>
+<div id="imageData"><h1>{{ coralReply }}</h1></div>
+<div id="imageConfidence">{{ coralPercent }}</div>
 {% endif %}
 
 </center>
