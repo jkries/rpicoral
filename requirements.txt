@@ -4,7 +4,7 @@ Flask-WTF==0.14.2
 future==0.17.1
 idna==2.8
 itsdangerous==1.1.0
-Pillow==5.4.1
+Pillow>=7.1.0
 requests==2.21.0
 Werkzeug>=0.15.3
 WTForms==2.2.1
