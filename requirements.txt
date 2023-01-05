@@ -1,7 +1,7 @@
 Flask==1.0.2
 Flask-Uploads==0.2.1
 Flask-WTF==0.14.2
-future==0.17.1
+future
 idna==2.8
 itsdangerous==1.1.0
 Pillow>=7.1.0
